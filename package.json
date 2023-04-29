@@ -23,7 +23,7 @@
     "prisma": "prisma",
     "server": "ts-node-dev src/app/main",
     "dev": "concurrently --kill-others \"npm run server\"",
-    "poststart": "npm run dev"
+    "poststart": "npm start"
   },
   "author": "",
   "license": "ISC",
