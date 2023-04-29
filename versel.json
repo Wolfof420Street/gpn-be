@@ -1,15 +1,15 @@
 {
-    "version": 2,
-    "functions": {
-      "app/main.ts": {
-        "runtime": "nodejs14.x"
-      }
-    },
-    "routes": [
-      {
-        "src": "/(.*)",
-        "dest": "/"
-      }
-    ]
-  }
-  
+  "version": 2,
+  "builds": [
+    {
+      "src": "build/src/app/main.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "/"
+    }
+  ]
+}
