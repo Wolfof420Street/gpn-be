@@ -11,6 +11,7 @@
     "tsc": "tsc",
     "clean": "rm -rf dist",
     "build": "run-s clean generate:prisma tsc",
+    "vercel-build": "npm run build",
     "prisma:studio": "prisma studio",
     "migration:dev": "prisma migrate dev",
     "migration:create": "prisma migrate dev --create-only",
