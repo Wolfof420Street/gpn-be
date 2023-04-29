@@ -31,6 +31,8 @@ server.start().then(async () => {
   // listenToChainEvents();
 
   app.listen({ port: process.env.PORT || 3000 }, async () => {
-      console.log(`graphql api running at }/graphql: ${process.env.PORT || 3000}`);
+    const host = process.env.HOST || 'localhost';
+    const port = process.env.PORT || 3000;
+    console.log(`GraphQL API running at http://${host}:${port}/graphql`);
   });
 });
