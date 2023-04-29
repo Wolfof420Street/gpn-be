@@ -1,30 +1,36 @@
-import { ApolloServer } from 'apollo-server-micro';
 
-import Cors from 'cors';
-import { schema } from './graphql/schema';
+import { schema } from "./graphql/schema";
 
-const cors = Cors({
-  origin: '*', // You can set specific origins instead of using '*' (wildcard) for security purposes
-  methods: ['POST', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: true,
+import { ApolloServer } from "apollo-server-express";
+import cors from "cors";
+import express from "express";
+import { context } from "./graphql/context";
+
+const server = new ApolloServer({
+  schema,
+  context: context,
+  introspection: true,
+  cache: "bounded",
+
 });
 
-const server = new ApolloServer({ schema });
+const app = express();
 
-const handler = server.createHandler({ path: '/api/graphql' });
+app.use(cors());
 
-export default (req, res) => {
-  if (req.method === 'OPTIONS') {
-    res.status(200).end();
-    return;
-  }
+server.start().then(async () => {
+  app.get("/", async (req, res) => {
+      res.send(200);
+  });
+  
+  server.applyMiddleware({
+      app,
+      path: "/graphql"
+  });
 
-  return cors(req, res, () => handler(req, res));
-};
+  // listenToChainEvents();
 
-export const config = {
-  api: {
-    bodyParser: false,
-  },
-};
+  app.listen({ port: process.env.PORT || 3000 }, async () => {
+      console.log(`graphql api running at }/graphql: ${process.env.PORT || 3000}`);
+  });
+});
