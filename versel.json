@@ -21,8 +21,8 @@
   
   "routes": [
     {
-      "src": "/(.*)",
-      "dest": "/"
+      "src": "/graphql",
+      "dest": "/build/src/app/main.js"
     }
   ]
 }
